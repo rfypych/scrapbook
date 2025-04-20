@@ -1,0 +1,344 @@
+/* Book container and page styling */
+
+.book-container {
+  perspective: 2000px;
+  width: var(--book-width);
+  max-width: var(--book-max-width);
+  height: var(--book-height);
+  max-height: var(--book-max-height);
+  position: relative;
+  margin: 0 auto;
+  transition: var(--transition-normal);
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-slow) cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-slow) cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+}
+
+.page-front, .page-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: var(--space-lg);
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* Paper texture effect for pages */
+.page-front, .page-back, .cover-front, .cover-back {
+  background-color: var(--color-off-white);
+  background-image: 
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+/* Color variations for alternating pages */
+.page:nth-child(odd) .page-front {
+  background-color: var(--color-off-white);
+}
+
+.page:nth-child(even) .page-front {
+  background-color: var(--color-white);
+}
+
+.page:nth-child(odd) .page-back {
+  background-color: var(--color-white);
+}
+
+.page:nth-child(even) .page-back {
+  background-color: var(--color-off-white);
+}
+
+.page-front {
+  transform: rotateY(0deg);
+  z-index: 1;
+}
+
+.page-back {
+  transform: rotateY(180deg);
+  z-index: 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Page turning effect */
+.page.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Edge shadow effect when page turns */
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.1));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.page:not(.flipped):hover::after {
+  opacity: 1;
+}
+
+/* Cover styling */
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-slow) cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.cover-front, .cover-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  padding: var(--space-lg);
+  box-sizing: border-box;
+  box-shadow: var(--shadow-lg);
+}
+
+.cover-front {
+  background-color: var(--color-purple);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    var(--color-purple-light) 0%,
+    var(--color-purple) 70%
+  );
+  transform: rotateY(0deg);
+  z-index: 10;
+}
+
+.cover-back {
+  background-color: var(--color-pink);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    var(--color-pink-light) 0%,
+    var(--color-pink) 70%
+  );
+  transform: rotateY(180deg);
+  z-index: 0;
+}
+
+.cover.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Navigation buttons */
+.book-navigation {
+  position: absolute;
+  bottom: var(--space-md);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  z-index: var(--z-above);
+}
+
+.nav-button {
+  background: var(--color-purple);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-fast);
+  opacity: 0.7;
+}
+
+.nav-button:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-button:active {
+  transform: translateY(0);
+}
+
+.nav-button.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Page number indicator */
+.page-indicator {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-lg);
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  color: var(--color-gray);
+  z-index: var(--z-above);
+}
+
+/* Watermark styling */
+.watermark {
+  position: absolute;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  font-family: var(--font-handwriting);
+  font-size: 1.2rem;
+  color: var(--color-light-gray);
+  opacity: 0.5;
+  transform: rotate(-7deg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Page curl effect on hover */
+.page:not(.flipped):hover {
+  transform: rotateY(-15deg);
+}
+
+/* Paper fold effect */
+.page-fold {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 30px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(0,0,0,0.05));
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Page content general styling */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading state */
+.book-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-top);
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.book-loading.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--color-light-gray);
+  border-top-color: var(--color-purple);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .page-front, .page-back, .cover-front, .cover-back {
+    padding: var(--space-md);
+  }
+  
+  .watermark {
+    font-size: 1rem;
+  }
+  
+  .book-navigation {
+    bottom: var(--space-sm);
+  }
+  
+  .nav-button {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Page turning sound effect (managed via JS) */
+.page-turn-sound {
+  display: none;
+}
+
+/* Page edge styles for realistic book effect */
+.book::before,
+.book::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    var(--color-light-gray) 0%, 
+    var(--color-white) 5%, 
+    var(--color-light-gray) 15%, 
+    var(--color-white) 25%,
+    var(--color-light-gray) 35%, 
+    var(--color-white) 45%,
+    var(--color-light-gray) 55%, 
+    var(--color-white) 65%,
+    var(--color-light-gray) 75%, 
+    var(--color-white) 85%,
+    var(--color-light-gray) 95%, 
+    var(--color-white) 100%
+  );
+  background-size: 100% 20px;
+  z-index: 5;
+}
+
+.book::before {
+  left: 0;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.book::after {
+  right: 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
