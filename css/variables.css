@@ -1,0 +1,103 @@
+:root {
+  /* Primary Colors - Aira's Favorites */
+  --color-purple: #D8B4FE;
+  --color-pink: #FF9EAA;
+  
+  /* Shades and Tints */
+  --color-purple-dark: #B28ADA;
+  --color-purple-light: #F0E4FF;
+  --color-pink-dark: #FF7A8C;
+  --color-pink-light: #FFD1D8;
+  
+  /* Neutral Colors */
+  --color-white: #FFFFFF;
+  --color-off-white: #F9F9F9;
+  --color-light-gray: #E5E5E5;
+  --color-gray: #A0A0A0;
+  --color-dark-gray: #505050;
+  --color-black: #121212;
+  
+  /* Accent Colors */
+  --color-teal: #5EE7D8;
+  --color-yellow: #FFE17B;
+  --color-lavender: #B8C0FF;
+  
+  /* Functional Colors */
+  --color-success: #A3E4D7;
+  --color-error: #F48FB1;
+  --color-warning: #FFE082;
+  --color-info: #90CAF9;
+  
+  /* Typography */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Montserrat', sans-serif;
+  --font-handwriting: 'Dancing Script', cursive;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-index layers */
+  --z-below: -1;
+  --z-normal: 1;
+  --z-above: 10;
+  --z-top: 100;
+  --z-modal: 1000;
+  
+  /* Book dimensions */
+  --book-width: 90vw;
+  --book-height: 85vh;
+  --book-max-width: 1000px;
+  --book-max-height: 650px;
+  --page-ratio: 1.414; /* A4 ratio */
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-white: #121212;
+    --color-off-white: #1E1E1E;
+    --color-light-gray: #323232;
+    --color-gray: #777777;
+    --color-dark-gray: #B0B0B0;
+    --color-black: #F9F9F9;
+    
+    /* Adjusted colors for dark mode */
+    --color-purple: #9F7AE5;
+    --color-pink: #E57A8A;
+    --color-purple-light: #473A6B;
+    --color-pink-light: #6B3A47;
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  :root {
+    --book-width: 95vw;
+    --book-height: 70vh;
+    --book-max-width: 100vw;
+    --book-max-height: 80vh;
+  }
+}
